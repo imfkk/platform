@@ -2,7 +2,9 @@ package com.kunluntop.eportal.controller;
 
 import com.kunluntop.eportal.service.HelloService;
 import com.kunluntop.pojo.TbCar;
+import com.kunluntop.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +26,8 @@ public class HelloWorld {
     @Autowired
     private HelloService helloService;
 
+    @Autowired
+    private RedisUtil redisUtil;
 
     @RequestMapping(value = "/hello")
     public TbCar hello() {
