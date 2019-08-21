@@ -31,8 +31,8 @@ public class HelloWorld {
 
     @RequestMapping(value = "/hello")
     public TbCar hello() {
-      /*  Map<String, String> map = new HashMap<>();
-        map.put("hello", "hello");*/
+
+         Object a= redisUtil.get("asda");
         TbCar car=helloService.getCar();
         return car;
     }

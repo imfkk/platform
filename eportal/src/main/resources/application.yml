@@ -9,8 +9,9 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/carsdatabase?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
   redis:
-    host: 127.0.0.1
+    host: 47.92.31.25
     port: 6379
+    requirePass: redis123456
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.kunluntop.pojo
