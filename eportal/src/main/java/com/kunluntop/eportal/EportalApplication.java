@@ -5,9 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication(scanBasePackages = "com.kunluntop")
 @MapperScan("com.kunluntop.mapper")
+@EnableRedisHttpSession
 public class EportalApplication {
 
     public static void main(String[] args) {

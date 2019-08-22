@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,9 +32,10 @@ public class HelloWorld {
     private RedisUtil redisUtil;
 
     @RequestMapping(value = "/hello")
-    public TbCar hello() {
-
-         Object a= redisUtil.get("asda");
+    public TbCar hello(HttpServletRequest request) {
+          HttpSession session= request.getSession();
+       // session.setAttribute("aa","aa");
+       System.out.println(session.getAttribute("aa"));
         TbCar car=helloService.getCar();
         return car;
     }
