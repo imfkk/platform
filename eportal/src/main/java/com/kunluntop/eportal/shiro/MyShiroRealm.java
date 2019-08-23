@@ -1,5 +1,6 @@
 package com.kunluntop.eportal.shiro;
 
+import com.kunluntop.eportal.base.User;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -15,26 +16,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.*;
 
 public class MyShiroRealm extends AuthorizingRealm {
+
+
+    final String username = "admin";//用户名
+    final String password = "6a8afe58b7644ad5fc2eadd5aa236ae8";//用户密码，使用123456与fkk加密得到
 
 
     //权限信息，包括角色以及权限
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-       /* //如果身份认证的时候没有传入User对象，这里只能取到userName
-        //也就是SimpleAuthenticationInfo构造的时候第一个参数传递需要User对象
-        User user  = (User)principals.getPrimaryPrincipal();
-
-        for(SysRole role:user.getRoleList()){
-            authorizationInfo.addRole(role.getRole());
-            for(SysPermission p:role.getPermissions()){
-                authorizationInfo.addStringPermission(p.getPermission());
-            }
-        }*/
-        return authorizationInfo;
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        Set<String> roles = new HashSet<>();//角色集合
+        Set<String> set = new HashSet<String>();//权限集合
+        set.add("test");//添加权限
+        set.add("create");//添加权限
+        info.setStringPermissions(set);
+        System.out.print("权限添加成功");
+        return info;
     }
 
     /*主要是用来进行身份认证的，也就是说验证用户输入的账号和密码是否正确。*/
@@ -42,30 +44,41 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
 
-       /* System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
-        //获取用户的输入的账号.
-        String userName = (String)token.getPrincipal();
-        System.out.println(token.getCredentials());
-        //通过username从数据库中查找 User对象.
-        //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
-        User user = userService.findByUserName(userName);
-        System.out.println("----->>user="+user);
-        if(user == null){
-            return null;
-        }*/
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo();
-            /*    user, //这里传入的是user对象，比对的是用户名，直接传入用户名也没错，但是在授权部分就需要自己重新从数据库里取权限
-                user.getPassword(), //密码
-                ByteSource.Util.bytes(user.getCredentialsSalt()),//salt=username+salt
-                getName()  //realm name
-        );*/
+        //获取身份
+        String username = (String) token.getPrincipal();
+        //模拟数据库查询
+        User user = queryUserByName(username);
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo( user.getName(),
+                user.getPassword(), // 密码
+                ByteSource.Util.bytes(user.getSalt()),
+                getName());
         return authenticationInfo;
     }
     @Override
     public boolean isPermitted(Permission permission,AuthorizationInfo info){
+        Collection<Permission> perms= this.getPermissions(info);
+        if (perms!=null&&!perms.isEmpty()){
+            Iterator<Permission> iterator=perms.iterator();
+            while (iterator.hasNext()){
+                Permission perm=iterator.next();
+                if (perm.implies(permission)){
+                    return  true;
+                }
+            }
+        }
         return  false;
     }
 
+
+    User queryUserByName(String username){
+        User user=new User();
+        user.setName(username);
+        user.setPassword("12313");
+        user.setPassword(password);
+        user.setSalt("fkk");
+        user.setId("1");
+return user;
+    }
 
 
 
