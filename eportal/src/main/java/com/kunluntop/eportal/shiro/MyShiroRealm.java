@@ -77,7 +77,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         user.setPassword(password);
         user.setSalt("fkk");
         user.setId("1");
-return user;
+        return user;
     }
 
 
