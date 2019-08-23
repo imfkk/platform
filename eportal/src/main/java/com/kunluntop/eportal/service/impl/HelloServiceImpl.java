@@ -3,6 +3,9 @@ package com.kunluntop.eportal.service.impl;
 import com.kunluntop.eportal.service.HelloService;
 import com.kunluntop.mapper.TbCarMapper;
 import com.kunluntop.pojo.TbCar;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

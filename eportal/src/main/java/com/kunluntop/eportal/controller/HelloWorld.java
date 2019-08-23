@@ -3,6 +3,7 @@ package com.kunluntop.eportal.controller;
 import com.kunluntop.eportal.service.HelloService;
 import com.kunluntop.pojo.TbCar;
 import com.kunluntop.redis.RedisUtil;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +30,12 @@ public class HelloWorld {
     private RedisUtil redisUtil;
 
     @RequestMapping(value = "/hello")
+    @RequiresPermissions("asda")
     public TbCar hello(HttpServletRequest request) {
         HttpSession session = request.getSession();
         // session.setAttribute("aa","aa");
         System.out.println(session.getAttribute("aa"));
+        redisUtil.set("asda","asda",-1);
         TbCar car = helloService.getCar();
         return car;
     }
