@@ -20,7 +20,7 @@ public class EportalApplication {
     }
 
     @Bean
-    public HttpMessageConverters fastJsonConfigure(){
+    public HttpMessageConverters fastJsonConfigure() {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);

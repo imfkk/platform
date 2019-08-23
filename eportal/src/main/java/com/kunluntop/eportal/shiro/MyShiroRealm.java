@@ -5,18 +5,17 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authz.*;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.Permission;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class MyShiroRealm extends AuthorizingRealm {
 
@@ -48,30 +47,31 @@ public class MyShiroRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
         //模拟数据库查询
         User user = queryUserByName(username);
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo( user.getName(),
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getName(),
                 user.getPassword(), // 密码
                 ByteSource.Util.bytes(user.getSalt()),
                 getName());
         return authenticationInfo;
     }
+
     @Override
-    public boolean isPermitted(Permission permission,AuthorizationInfo info){
-        Collection<Permission> perms= this.getPermissions(info);
-        if (perms!=null&&!perms.isEmpty()){
-            Iterator<Permission> iterator=perms.iterator();
-            while (iterator.hasNext()){
-                Permission perm=iterator.next();
-                if (perm.implies(permission)){
-                    return  true;
+    public boolean isPermitted(Permission permission, AuthorizationInfo info) {
+        Collection<Permission> perms = this.getPermissions(info);
+        if (perms != null && !perms.isEmpty()) {
+            Iterator<Permission> iterator = perms.iterator();
+            while (iterator.hasNext()) {
+                Permission perm = iterator.next();
+                if (perm.implies(permission)) {
+                    return true;
                 }
             }
         }
-        return  false;
+        return false;
     }
 
 
-    User queryUserByName(String username){
-        User user=new User();
+    User queryUserByName(String username) {
+        User user = new User();
         user.setName(username);
         user.setPassword("12313");
         user.setPassword(password);
@@ -79,8 +79,6 @@ public class MyShiroRealm extends AuthorizingRealm {
         user.setId("1");
         return user;
     }
-
-
 
 
 }

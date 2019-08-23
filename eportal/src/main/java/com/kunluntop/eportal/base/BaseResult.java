@@ -1,8 +1,5 @@
 package com.kunluntop.eportal.base;
 
-import java.util.HashMap;
-import java.util.List;
-
 /**
  * @author 10919
  * @title: BaseResult
@@ -49,8 +46,8 @@ public class BaseResult {
         this.data = data;
     }
 
-    public static BaseResult success(String msg,Object data){
-        BaseResult ret=new BaseResult();
+    public static BaseResult success(String msg, Object data) {
+        BaseResult ret = new BaseResult();
         ret.setState(0);
         ret.setCode(0);
         ret.setMessage(msg);
@@ -58,8 +55,8 @@ public class BaseResult {
         return ret;
     }
 
-    public static BaseResult fail(Integer errorCode,String msg,Object data){
-        BaseResult ret=new BaseResult();
+    public static BaseResult fail(Integer errorCode, String msg, Object data) {
+        BaseResult ret = new BaseResult();
         ret.setState(1);
         ret.setCode(errorCode);
         ret.setMessage(msg);
