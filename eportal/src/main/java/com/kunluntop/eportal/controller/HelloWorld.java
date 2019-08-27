@@ -39,7 +39,6 @@ public class HelloWorld {
     @NoRepeatSubmit
     public BaseResult hello(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        // session.setAttribute("aa","aa");
         System.out.println(session.getAttribute("aa"));
         redisUtil.set("asda", "asda", -1);
         try {
