@@ -27,14 +27,12 @@ public class MyShiroRealm extends AuthorizingRealm {
     //权限信息，包括角色以及权限
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Set<String> roles = new HashSet<>();//角色集合
         Set<String> set = new HashSet<String>();//权限集合
         set.add("test");//添加权限
         set.add("create");//添加权限
         info.setStringPermissions(set);
-        System.out.print("权限添加成功");
         return info;
     }
 

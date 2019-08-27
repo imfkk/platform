@@ -40,12 +40,6 @@ public class HelloWorld {
     public BaseResult hello(HttpServletRequest request) {
         HttpSession session = request.getSession();
         System.out.println(session.getAttribute("aa"));
-        redisUtil.set("asda", "asda", -1);
-        try {
-            Thread.sleep(3*10000);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         TbCar car = helloService.getCar();
        // return  car;
         return BaseResult.success("查询成功",car);

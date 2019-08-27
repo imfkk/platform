@@ -34,7 +34,7 @@ public class NoRepeatSubmitAop {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             String sessionId = RequestContextHolder.getRequestAttributes().getSessionId();
             HttpServletRequest request = attributes.getRequest();
-            String key = sessionId + "-" + request.getServletPath();
+            String key ="repeatsubmit:"+ sessionId + ":" + request.getServletPath();
             if (redisUtil.get(key) == null) {// 如果缓存中有这个url视为重复提交
                     redisUtil.set(key,"",3*1000);
                     Object o=null;
