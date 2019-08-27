@@ -1,14 +1,12 @@
-package com.kunluntop.eportal.utils.noRepeatSubmit;
+package com.kunluntop.eportal.aop.noRepeatSubmit;
 
 import com.kunluntop.eportal.exception.RepeatSubmitException;
-import com.kunluntop.eportal.utils.base.BaseResult;
 import com.kunluntop.redis.RedisUtil;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;

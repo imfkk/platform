@@ -1,4 +1,4 @@
-package com.kunluntop.eportal.utils.noRepeatSubmit;
+package com.kunluntop.eportal.aop.noRepeatSubmit;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

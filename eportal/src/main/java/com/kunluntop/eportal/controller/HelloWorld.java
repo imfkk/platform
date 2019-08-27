@@ -2,7 +2,7 @@ package com.kunluntop.eportal.controller;
 
 import com.kunluntop.eportal.utils.base.BaseResult;
 import com.kunluntop.eportal.service.HelloService;
-import com.kunluntop.eportal.utils.noRepeatSubmit.NoRepeatSubmit;
+import com.kunluntop.eportal.aop.noRepeatSubmit.NoRepeatSubmit;
 import com.kunluntop.pojo.TbCar;
 import com.kunluntop.redis.RedisUtil;
 import org.apache.shiro.SecurityUtils;
