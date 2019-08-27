@@ -1,6 +1,6 @@
 package com.kunluntop.eportal.exception;
 
-import com.kunluntop.eportal.base.BaseResult;
+import com.kunluntop.eportal.utils.base.BaseResult;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

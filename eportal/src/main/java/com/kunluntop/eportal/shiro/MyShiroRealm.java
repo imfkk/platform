@@ -1,6 +1,6 @@
 package com.kunluntop.eportal.shiro;
 
-import com.kunluntop.eportal.base.User;
+import com.kunluntop.eportal.utils.base.User;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

@@ -1,6 +1,6 @@
 package com.kunluntop.eportal.controller;
 
-import com.kunluntop.eportal.base.BaseResult;
+import com.kunluntop.eportal.utils.base.BaseResult;
 import com.kunluntop.eportal.service.HelloService;
 import com.kunluntop.pojo.TbCar;
 import com.kunluntop.redis.RedisUtil;

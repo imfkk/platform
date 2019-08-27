@@ -1,4 +1,4 @@
-package com.kunluntop.eportal.base;
+package com.kunluntop.eportal.utils.base;
 
 /**
  * @author 10919

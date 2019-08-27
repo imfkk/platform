@@ -1,4 +1,4 @@
-package com.kunluntop.eportal.base;
+package com.kunluntop.eportal.utils.base;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
