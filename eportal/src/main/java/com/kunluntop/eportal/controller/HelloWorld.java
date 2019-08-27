@@ -2,6 +2,7 @@ package com.kunluntop.eportal.controller;
 
 import com.kunluntop.eportal.utils.base.BaseResult;
 import com.kunluntop.eportal.service.HelloService;
+import com.kunluntop.eportal.utils.noRepeatSubmit.NoRepeatSubmit;
 import com.kunluntop.pojo.TbCar;
 import com.kunluntop.redis.RedisUtil;
 import org.apache.shiro.SecurityUtils;
@@ -35,13 +36,19 @@ public class HelloWorld {
 
     @RequestMapping(value = "/hello")
     @RequiresPermissions("test")
-    public TbCar hello(HttpServletRequest request) {
+    @NoRepeatSubmit
+    public BaseResult hello(HttpServletRequest request) {
         HttpSession session = request.getSession();
         // session.setAttribute("aa","aa");
         System.out.println(session.getAttribute("aa"));
         redisUtil.set("asda", "asda", -1);
+        try {
+            Thread.sleep(3*10000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         TbCar car = helloService.getCar();
-        return car;
+        return BaseResult.success("查询成功",car);
     }
 
     @RequestMapping("/login")
