@@ -1,5 +1,6 @@
-package com.kunluntop.eportal.exception;
+package com.kunluntop.eportal.aop;
 
+import com.kunluntop.eportal.exception.RepeatSubmitException;
 import com.kunluntop.eportal.utils.base.BaseResult;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
@@ -24,6 +25,9 @@ public class GlobleControllerAdvice {
         }
         if (ex instanceof UnauthorizedException) {
             return BaseResult.fail(110, "权限不足", new Object());
+        }
+        if (ex instanceof RepeatSubmitException){
+            return BaseResult.fail(110, "重复提交", new Object());
         }
         return BaseResult.fail(200, "系统异常", new Object());
     }

@@ -37,7 +37,7 @@ public class HelloWorld {
     @RequestMapping(value = "/hello")
     @RequiresPermissions("test")
     @NoRepeatSubmit
-    public BaseResult hello(HttpServletRequest request) {
+    public TbCar hello(HttpServletRequest request) {
         HttpSession session = request.getSession();
         System.out.println(session.getAttribute("aa"));
         redisUtil.set("asda", "asda", -1);
@@ -47,7 +47,8 @@ public class HelloWorld {
             e.printStackTrace();
         }
         TbCar car = helloService.getCar();
-        return BaseResult.success("查询成功",car);
+        return  car;
+       // return BaseResult.success("查询成功",car);
     }
 
     @RequestMapping("/login")

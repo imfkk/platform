@@ -1,5 +1,6 @@
 package com.kunluntop.eportal.utils.noRepeatSubmit;
 
+import com.kunluntop.eportal.exception.RepeatSubmitException;
 import com.kunluntop.eportal.utils.base.BaseResult;
 import com.kunluntop.redis.RedisUtil;
 import org.apache.juli.logging.Log;
@@ -29,26 +30,28 @@ public class NoRepeatSubmitAop {
 
     @Around("@annotation(nrs)")
     public Object arround(ProceedingJoinPoint pjp, NoRepeatSubmit nrs) {
-        try {
+
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             String sessionId = RequestContextHolder.getRequestAttributes().getSessionId();
             HttpServletRequest request = attributes.getRequest();
             String key = sessionId + "-" + request.getServletPath();
             if (redisUtil.get(key) == null) {// 如果缓存中有这个url视为重复提交
                     redisUtil.set(key,"",3*1000);
-                    Object o = pjp.proceed();
+                    Object o=null;
+                    try {
+                        o = pjp.proceed();
+                        int a=  1/0;
+                    }catch (Throwable e){
+                        e.printStackTrace();
+                        logger.error("验证重复提交时出现未知异常!");
+                        throw  new RuntimeException("验证重复提交时出现未知异常!");
+                    }
                     redisUtil.del(key);
                     return o;
             } else {
                 logger.error("重复提交:"+request.getServletPath());
-                return BaseResult.fail(100,"重复提交","");
+                throw  new RepeatSubmitException("重复提交");
             }
-        } catch (Throwable e) {
-            e.printStackTrace();
-            logger.error("验证重复提交时出现未知异常!");
-            return BaseResult.fail(-1,"验证重复提交时出现未知异常!","");
-        }
-
     }
 
 }
