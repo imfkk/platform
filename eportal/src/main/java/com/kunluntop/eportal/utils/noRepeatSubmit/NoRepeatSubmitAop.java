@@ -40,7 +40,6 @@ public class NoRepeatSubmitAop {
                     Object o=null;
                     try {
                         o = pjp.proceed();
-                        int a=  1/0;
                     }catch (Throwable e){
                         e.printStackTrace();
                         logger.error("验证重复提交时出现未知异常!");
